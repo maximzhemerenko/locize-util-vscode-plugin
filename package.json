@@ -1,0 +1,57 @@
+{
+  "name": "TranslationUtilHelper",
+  "displayName": "TranslationUtilHelper",
+  "description": "",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.99.3"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:json"
+  ],
+  "repository": "https://github.com/maximzhemerenko/locize-util-websorm-plugin",
+  "main": "./out/extension.js",
+  "icon": "pluginIcon.png",
+  "contributes": {
+    "commands": [
+      {
+        "command": "translationutil.locizeButtonGroup",
+        "title": "Locize ↓"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "translationutil.locizeButtonGroup",
+          "when": "translationutil.isLocizeButtonGroupVisible",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "yarn run compile && yarn run lint",
+    "lint": "eslint src",
+    "package": "vsce package"
+  },
+  "dependencies": {
+    "ini": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.99.1",
+    "@types/node": "22.x",
+    "@typescript-eslint/eslint-plugin": "^8.39.0",
+    "@typescript-eslint/parser": "^8.39.0",
+    "eslint": "^9.32.0",
+    "typescript": "^5.9.2",
+    "vsce": "^2.15.0",
+    "@types/ini": "^4.1.1"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+}
