@@ -2,10 +2,16 @@ import {ShellScript} from "./shell";
 import {saveAllWorkspaceFiles} from "./pluginUtils";
 
 class TranslationUtil {
-  async run(command: string, namespace: string) {
+  async run(command: string, namespace?: string) {
     await saveAllWorkspaceFiles();
 
-    await ShellScript.run('yarn', 'locize', command, '--namespace', namespace);
+    const args = ['yarn', 'locize', command];
+
+    if (namespace) {
+      args.push('--namespace', namespace);
+    }
+
+    await ShellScript.run(args);
   }
 }
 
