@@ -4,9 +4,9 @@ import {LocizeDevAction} from "./LocizeDevAction";
 import {LocizeGetAction} from "./LocizeGetAction";
 import {LocizeGetAllAction} from "./LocizeGetAllAction";
 
-const LOCIZE_DEV = "LOCIZE_DEV";
-const LOCIZE_GET = "LOCIZE_GET";
-const LOCIZE_GET_ALL = "LOCIZE_GET_ALL";
+const LOCIZE_DEV = "LOCIZE DEV";
+const LOCIZE_GET = "LOCIZE GET";
+const LOCIZE_GET_ALL = "LOCIZE GET ALL";
 
 export class LocizeButtonGroup {
   async execute() {
