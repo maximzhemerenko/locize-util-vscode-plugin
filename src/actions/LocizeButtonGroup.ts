@@ -2,22 +2,38 @@ import {TextEditor, window} from "vscode";
 import {setIsLocizeButtonVisible, getTranslationFileType} from "../core";
 import {LocizeDevAction} from "./LocizeDevAction";
 import {LocizeGetAction} from "./LocizeGetAction";
+import {LocizeGetAllAction} from "./LocizeGetAllAction";
+
+const LOCIZE_DEV = "LOCIZE_DEV";
+const LOCIZE_GET = "LOCIZE_GET";
+const LOCIZE_GET_ALL = "LOCIZE_GET_ALL";
 
 export class LocizeButtonGroup {
   async execute() {
+    const actions = [
+      LOCIZE_DEV,
+      LOCIZE_GET,
+      LOCIZE_GET_ALL,
+    ];
+
     const choice = await window.showQuickPick(
-      ['Locize DEV', 'Locize GET'],
-      { placeHolder: 'Select action' }
+      actions,
+      {placeHolder: 'Select action'}
     );
 
-    if (!choice) {return;}
+    if (!choice) {
+      return;
+    }
 
-    switch(choice) {
-      case 'Locize DEV':
-        new LocizeDevAction().execute();
+    switch (choice) {
+      case LOCIZE_DEV:
+        await new LocizeDevAction().execute();
         break;
-      case 'Locize GET':
-        new LocizeGetAction().execute();
+      case LOCIZE_GET:
+        await new LocizeGetAction().execute();
+        break;
+      case LOCIZE_GET_ALL:
+        await new LocizeGetAllAction().execute();
         break;
     }
   }
