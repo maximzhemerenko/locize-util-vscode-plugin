@@ -7,6 +7,8 @@ export class LocizeGetAction {
 
     const filePath = getEditorFilePath(editor);
 
-    await TranslationUtil.run("get", getNamespace(filePath));
+    await TranslationUtil.run("get", {
+      namespace: getNamespace(filePath)
+    });
   }
 }
