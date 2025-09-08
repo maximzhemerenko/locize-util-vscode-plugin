@@ -40,9 +40,13 @@ class ScriptRunner {
 
   run() {
     return new Promise<void>((resolve, reject) => {
-      this.outputChannel?.appendLine(`> ${this.command.join(' ')}`);
+      const command = this.command.join(' ');
 
-      const process = exec(this.command.join(' '), {cwd: getWorkspaceRoot()}, (error, _, stderr) => {
+      this.outputChannel?.appendLine(`> ${command}`);
+
+      const shellCommand  = `/bin/zsh -li -c "${command}"`;
+
+      const process = exec(shellCommand, {cwd: getWorkspaceRoot()}, (error, _, stderr) => {
         if (error) {
           this.outputChannel?.append(`Error: ${stderr || error.message}`);
 
