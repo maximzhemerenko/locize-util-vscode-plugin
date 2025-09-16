@@ -1,9 +1,11 @@
 import {ShellScript} from "./shell";
 import {saveAllWorkspaceFiles} from "./pluginUtils";
+import {Release} from "./release";
 
 interface IRunOptions {
   namespace?: string;
   sync?: boolean;
+  release?: Release;
 }
 
 class TranslationUtil {
@@ -11,6 +13,10 @@ class TranslationUtil {
     await saveAllWorkspaceFiles();
 
     const args = ['yarn', 'locize', command];
+
+    if (options?.release) {
+      args.push(options.release.version, `--${options.release.product}`);
+    }
 
     if (options?.namespace) {
       args.push('--namespace', options.namespace);

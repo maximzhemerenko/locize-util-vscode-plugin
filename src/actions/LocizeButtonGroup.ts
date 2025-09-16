@@ -4,11 +4,13 @@ import {LocizeDevAction} from "./LocizeDevAction";
 import {LocizeGetAction} from "./LocizeGetAction";
 import {LocizeGetAllAction} from "./LocizeGetAllAction";
 import {LocizeDevSyncAction} from "./LocizeDevSyncAction";
+import {LocizeReleaseGroup} from "./LocizeReleaseGroup";
 
 const LOCIZE_DEV = "LOCIZE DEV";
 const LOCIZE_DEV_SYNC = "LOCIZE DEV SYNC";
 const LOCIZE_GET = "LOCIZE GET";
 const LOCIZE_GET_ALL = "LOCIZE GET ALL";
+const LOCIZE_RELEASE = "LOCIZE RELEASE >";
 
 export class LocizeButtonGroup {
   async execute() {
@@ -18,6 +20,8 @@ export class LocizeButtonGroup {
       {label: '', kind: QuickPickItemKind.Separator},
       {label: LOCIZE_GET},
       {label: LOCIZE_GET_ALL},
+      {label: '', kind: QuickPickItemKind.Separator},
+      {label: LOCIZE_RELEASE}
     ];
 
     const choice = await window.showQuickPick(
@@ -41,6 +45,9 @@ export class LocizeButtonGroup {
         break;
       case LOCIZE_GET_ALL:
         await new LocizeGetAllAction().execute();
+        break;
+      case LOCIZE_RELEASE:
+        await new LocizeReleaseGroup().execute();
         break;
     }
   }
