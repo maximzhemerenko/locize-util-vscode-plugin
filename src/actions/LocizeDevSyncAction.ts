@@ -18,7 +18,7 @@ export class LocizeDevSyncAction {
 
     const release = this.options?.release;
 
-    const versionDescription = !release ? '' : `(${release.product} ${release.version})`;
+    const versionDescription = !release ? '' : `${release.version}`;
 
     if (await window.showWarningMessage(
       `Do you really want to overwrite the "${namespace}" namespace ${versionDescription} with your local version? This will remove any translations that may have been added by other developers.`,
