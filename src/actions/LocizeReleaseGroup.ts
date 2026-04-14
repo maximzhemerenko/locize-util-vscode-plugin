@@ -1,37 +1,37 @@
 import {QuickPickItem, QuickPickItemKind, TextEditor, window} from "vscode";
-import {getTranslationFileType, setIsLocizeButtonVisible, getReleases, Release} from "../core";
+import {getTranslationFileType, setIsLocizeButtonVisible, getRelease, Release} from "../core";
 import {LocizeGetAllAction} from "./LocizeGetAllAction";
 import {LocizeDevSyncAction} from "./LocizeDevSyncAction";
-import {LocizePublishAction} from "./publish";
+import {LocizePublishAction} from "./LocizePublishAction";
 
 type PickItem = QuickPickItem & ({
   type: 'getAll' | 'devSync' | 'publish';
   release: Release;
 } | {
-  type: 'publish';
-} | {});
+  kind: QuickPickItemKind.Separator,
+});
 
 export class LocizeReleaseGroup {
   async execute() {
     const actions: PickItem[] = [];
 
-    getReleases().forEach(release => {
-      actions.push({
-        label: `${release.product} [${release.version}]`,
-        kind: QuickPickItemKind.Separator,
-      });
+    const release = getRelease();
 
-      actions.push({
-        label: "GET ALL",
-        type: "getAll",
-        release,
-      });
+    actions.push({
+      label: release.version,
+      kind: QuickPickItemKind.Separator,
+    });
 
-      actions.push({
-        label: "DEV SYNC",
-        type: "devSync",
-        release,
-      });
+    actions.push({
+      label: "GET ALL",
+      type: "getAll",
+      release,
+    });
+
+    actions.push({
+      label: "DEV SYNC",
+      type: "devSync",
+      release,
     });
 
     actions.push({
@@ -40,8 +40,9 @@ export class LocizeReleaseGroup {
     });
 
     actions.push({
-      label: 'PUBLISH...',
+      label: 'PUBLISH',
       type: "publish",
+      release,
     });
 
     const choice = await window.showQuickPick(
@@ -63,7 +64,7 @@ export class LocizeReleaseGroup {
         break;
       }
       case "publish": {
-        await new LocizePublishAction().execute();
+        await new LocizePublishAction({release: choice.release}).execute();
         break;
       }
     }

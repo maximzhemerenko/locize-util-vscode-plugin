@@ -15,7 +15,7 @@ class TranslationUtil {
     const args = ['yarn', 'locize', command];
 
     if (options?.release) {
-      args.push(options.release.version, `--${options.release.product}`);
+      args.push(options.release.version);
     }
 
     if (options?.namespace) {
